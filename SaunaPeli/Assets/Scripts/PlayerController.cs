@@ -35,6 +35,15 @@ public class PlayerController : Main
     private void MovePlayer() 
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
+        // Flips character depending on direction of movement.
+        if (horizontalMovement > 0)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if(horizontalMovement < 0)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
 
         if (Mathf.Abs(horizontalMovement) > Mathf.Epsilon) 
         {
