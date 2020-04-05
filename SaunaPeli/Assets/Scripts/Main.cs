@@ -9,13 +9,14 @@ public class Main : MonoBehaviour
     protected float halfWidth;
     protected float halfHeight;
     private SpriteRenderer spriteRenderer;
+    protected Rigidbody2D rb;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
         gameSceneController = FindObjectOfType<GameSceneController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
+        rb = GetComponent<Rigidbody2D>();
         halfWidth = spriteRenderer.bounds.extents.x;
         halfHeight = spriteRenderer.bounds.extents.y;
     }
