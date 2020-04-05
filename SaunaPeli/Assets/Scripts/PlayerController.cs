@@ -9,11 +9,15 @@ public class PlayerController : Main
     private bool isGrounded;
     // Invisible dot under character that checks for ground.
     public Transform feetPos;
-    // Size of invisible sensor. 0.3 is good small number
+    // Size of invisible sensor.
     public float checkRadius;
     public float jumpForce;
     // Add this layer to everything which is ground that you can jump off.
     public LayerMask whatIsGround;
+
+    private float jumpTimeCounter;
+    public float jumpTime;
+    private bool isJumping;
 
     // Start is called before the first frame update
     protected override void Start() 
@@ -52,7 +56,28 @@ public class PlayerController : Main
 
         if (Input.GetButtonDown("Jump") && isGrounded == true) 
         {
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce/10), ForceMode2D.Impulse);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+            
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
         }
     }
 }
