@@ -11,6 +11,8 @@ public class Main : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     protected Rigidbody2D rb;
 
+
+
     // Start is called before the first frame update
     protected virtual void Start()
     {

@@ -6,30 +6,60 @@ public class PlayerController : Main
 {
     
     // Checks if player is touching the ground
-    private bool isGrounded;
+    // public bool isGrounded;
     // Invisible dot under character that checks for ground.
-    public Transform feetPos;
+    // public Transform feetPos;
     // Size of invisible sensor.
-    public float checkRadius;
+    // public float checkRadius;
     public float jumpForce;
     // Add this layer to everything which is ground that you can jump off.
-    public LayerMask whatIsGround;
+    // public LayerMask whatIsGround;
+    public float jumpTimeCounter;
 
-    private float jumpTimeCounter;
+
+
     public float jumpTime;
-    private bool isJumping;
+    
+
+    public Rigidbody2D Rigidbody
+    {
+        get { return rb; }
+    }
+
+    private PlayerBaseState currentState;
+
+    public PlayerBaseState CurrentState
+    {
+        get { return currentState; }
+    }
+
+    public readonly PlayerIdleState IdleState = new PlayerIdleState();
+    public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
+    public readonly PlayerDoubleJumpState DoubleJumpingState = new PlayerDoubleJumpState();
+
 
     // Start is called before the first frame update
     protected override void Start() 
     {
         base.Start();
+        TransitionToState(IdleState);
     }
 
     // Update is called once per frame
     void Update() 
     {
         MovePlayer();
-        Jump();
+        currentState.Update(this);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        currentState.OnCollisionEnter2D(this);
+    }
+    public void TransitionToState(PlayerBaseState state)
+    {
+        currentState = state;
+        currentState.EnterState(this);
     }
 
     private void MovePlayer() 
@@ -56,37 +86,6 @@ public class PlayerController : Main
             float limit = Mathf.Clamp(horizontalMovement, left, right);
 
             transform.position = new Vector2(limit, transform.position.y);
-        }
-    }
-
-    void Jump() 
-    {
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
-
-        if (Input.GetButtonDown("Jump") && isGrounded == true) 
-        {
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-        }
-
-        if (Input.GetKey(KeyCode.Space) && isJumping == true)
-        {
-            if (jumpTimeCounter > 0)
-            {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce/10), ForceMode2D.Impulse);
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-            }
-            
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            isJumping = false;
         }
     }
 }
