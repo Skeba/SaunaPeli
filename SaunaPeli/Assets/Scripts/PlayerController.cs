@@ -48,6 +48,7 @@ public class PlayerController : Main
     // Update is called once per frame
     void Update() 
     {
+
         MovePlayer();
         currentState.Update(this);
     }
@@ -61,8 +62,7 @@ public class PlayerController : Main
         currentState = state;
         currentState.EnterState(this);
     }
-
-    private void MovePlayer() 
+    public void MovePlayer() 
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
         // Flips character depending on direction of movement.
