@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4572058834589645771}
   - component: {fileID: 5836639129972745389}
   - component: {fileID: 4922332116336928999}
+  - component: {fileID: 67374471}
   m_Layer: 0
   m_Name: water 1
   m_TagString: Untagged
@@ -121,3 +122,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3fc5912953bc754eafc45eb416b4727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &67374471
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4572058834589645773}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a44a37243eba9b142b030d90f007b1e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

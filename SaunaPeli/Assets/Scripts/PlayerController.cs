@@ -16,7 +16,7 @@ public class PlayerController : Main
     // public LayerMask whatIsGround;
     public float jumpTimeCounter;
 
-
+    public Animator animator;
 
     public float jumpTime;
     
@@ -62,9 +62,12 @@ public class PlayerController : Main
         currentState = state;
         currentState.EnterState(this);
     }
-    public void MovePlayer() 
+    public void MovePlayer()
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
+
         // Flips character depending on direction of movement.
         if (horizontalMovement > 0)
         {
